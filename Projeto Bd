@@ -1,0 +1,72 @@
+create table Cliente (
+cod_cli smallint,
+nome_cli varchar(40),
+endereco varchar(40),
+cidade varchar(20),
+cep char(08),
+estado char(02),
+primary key (cod_cli));
+
+create table Funcionario (
+cod_func smallint,
+nome_func varchar(40),
+sal_fixo decimal(9,2),
+primary key (cod_func));
+
+create table Produto (
+cod_prod smallint,
+desc_prod varchar(20),
+val_unit decimal(9,2),
+primary key (cod_prod));
+
+create table Pedido (
+num_ped smallint,
+dt_ped date,
+cod_cli smallint references cliente (cod_cli),
+cod_func smallint  references funcionario (cod_func),
+prazo_ent smallint default 3,
+vl_Pedido decimal(14,2) default 0,
+primary key (num_ped),
+foreign key (cod_cli) references cliente (cod_cli),
+foreign key (cod_func) references funcionario (cod_func));
+
+Create table Item_Pedido (
+num_ped smallint  references pedido (num_ped) ,
+num_item integer ,
+cod_prod smallint references produto (cod_prod),
+qt_prod smallint,
+vl_item decimal(12,2) default 0,
+primary key (num_item,num_ped),
+foreign key (Num_ped) references pedido (num_ped),
+foreign key (cod_prod) references produto (cod_prod) );
+
+insert into cliente values (2,'Juca','Rua 15 casa 6','Rio de Janeiro','66666666','RJ');
+insert into cliente values (3,'Joao ','Rua 2 casa 23','Niteroi','55555555','RJ');
+insert into cliente values (4,'Jose ','Rua 5 casa 36','Natal','44444444','RN');
+insert into cliente values (5,'Jorge ','Rua 7 casa 15','Campos do Jordão','33333333','SP');
+insert into cliente values (6,'Jose','Rua casa 21','Niteroi','22222222','RJ');
+insert into cliente values (7,'Jaqueline','Rua 1 casa 14','Campo Belo','11111111','MG');
+
+insert into funcionario values (1,'Leo',500.00);                                         
+                                       
+
+insert into produto values (000001,'Bola de Volei',129.90);
+insert into produto values (000002,'Tenis',239.90);
+insert into produto values (000003,'Camisas',49.90);
+insert into produto values (000004,'Joelheira',79.90);
+insert into produto values (000005,'Meia',9.90);
+
+
+insert into pedido (num_ped,dt_ped,cod_cli,cod_func,vl_pedido) values (1,'01/03/2018',3,1,1156.80);
+insert into pedido (num_ped,dt_ped,cod_cli,cod_func,vl_pedido) values (2,'03/04/2018',5,1,2234.56);
+insert into pedido (num_ped,dt_ped,cod_cli,cod_func,vl_pedido) values (3,'27/04/2018',7,1,1565.80);
+insert into pedido (num_ped,dt_ped,cod_cli,cod_func,vl_pedido) values (4,'17/11/2017',2,1,156.80);
+insert into pedido (num_ped,dt_ped,cod_cli,cod_func,vl_pedido) values (5,'22/10/2017',4,1,236.90);
+
+insert into item_pedido (num_ped,num_item,cod_prod,qt_prod,vl_item) values (1,1,000001,800,1270);
+insert into item_pedido (num_ped,num_item,cod_prod,qt_prod,vl_item) values (1,2,000003,300,2370);
+insert into item_pedido (num_ped,num_item,cod_prod,qt_prod,vl_item) values (2,1,000001,10,40);
+insert into item_pedido (num_ped,num_item,cod_prod,qt_prod,vl_item) values (3,1,000002,50,27);
+insert into item_pedido (num_ped,num_item,cod_prod,qt_prod,vl_item) values (4,1,000002,30,27);
+insert into item_pedido (num_ped,num_item,cod_prod,qt_prod,vl_item) values (5,1,000005,20,27);
+
