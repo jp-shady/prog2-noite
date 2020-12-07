@@ -1,0 +1,34 @@
+select nome_cli,estado from cliente where  estado = 'RJ';
+
+select sum (vl_pedido) from pedido where 
+dt_ped between '2017-01-01' and '2018-12-31';
+
+select nome_cli,cod_cli from cliente where cod_cli not in (select cod_cli from pedido);
+
+select nome_cli,desc_prod from pedido pe, cliente c,produto pr, item_pedido id
+where pe.cod_cli=c.cod_cli 
+and pr.cod_prod=id.cod_prod
+and id.num_ped=pe.num_ped;
+
+select nome_func from funcionario v, pedido p, item_pedido ip, produto pr
+where v.cod_func = p.cod_func
+and p.num_ped = ip.num_ped and ip.cod_prod = pr.cod_prod and desc_prod = 'Bola de Volei';
+
+select nome_cli, prazo_ent from cliente c, pedido p where c.cod_cli = p.cod_cli
+order by prazo_ent asc;
+
+select nome_cli,vl_pedido from cliente c, pedido p 
+where c.cod_cli=p.cod_cli 
+order by vl_pedido desc;
+
+select nome_cli,qt_prod from cliente c, pedido p, item_pedido ip
+where c.cod_cli=p.cod_cli and
+ip.num_ped=p.num_ped
+and dt_ped between '2018-01-01' and '2018-12-31';
+
+select *from pedido pe,cliente c,produto pr,item_pedido id
+where pe.cod_cli=c.cod_cli 
+and pr.cod_prod=id.cod_prod
+and id.num_ped=pe.num_ped
+and estado='RJ' and cidade='Niteroi' and desc_prod='Camisas';
+
